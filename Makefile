@@ -1,25 +1,26 @@
-PROJECT := lox
+PROJECT := clox
 
 # ---------------------------------------------------------
 #  Compiler
 # ---------------------------------------------------------
-CC := clang
+CC 	   := clang
 CFLAGS := -std=c17 -Wall -Werror -Wextra -pedantic
 
 # ---------------------------------------------------------
 # Directories and files
 # ---------------------------------------------------------
-SRC_DIR := ./src
-OBJ_DIR := ./obj
-BIN_DIR := ./bin
-SRCS := $(wildcard $(SRC_DIR)/*.c)
-OBJS := $(patsubst %.c, %.o, $(SRCS))
-EXEC := $(BIN_DIR)/$(PROJECT)
+SRC_DIR     := ./src
+INCLUDE_DIR := ./include
+BUILD_DIR   := ./obj
+BIN_DIR     := ./bin
+SRCS        := $(wildcard $(SRC_DIR)/*.c)
+OBJS        := $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
+EXEC        := $(BIN_DIR)/$(PROJECT)
 
 # ---------------------------------------------------------
 # Targets
 # ---------------------------------------------------------
-.PHONY: debug release all setup cleanup
+.PHONY: debug release all run cleanup
 
 debug: CFLAGS += -g -Og -DDEBUG
 debug: all
@@ -27,23 +28,20 @@ debug: all
 release: CFLAGS += -O2
 release: all
 
-test:
-	echo "test build not yet implemented"
+all: $(EXEC)
 
-all: setup $(EXEC)
-
-$(EXEC): $(OBJS)
-	$(CC) $(CFLAGS) $< -o $@
-
-$(BIN_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-setup:
-	@mkdir -p $(SRC_DIR)
-	@mkdir -p $(OBJ_DIR)
-	@mkdir -p $(BIN_DIR)
+run: $(EXEC)
+	$(EXEC)
 
 clean:
-	rm -rf $(OBJ_DIR)
+	rm -rf $(BUILD_DIR)
 	rm -rf $(BIN_DIR)
+
+$(EXEC): $(OBJS)
+	@mkdir -p $(BIN_DIR)
+	$(CC) $(CFLAGS) $< -o $@
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
