@@ -11,7 +11,7 @@ CFLAGS := -std=c17 -Wall -Werror -Wextra -pedantic
 # ---------------------------------------------------------
 SRC_DIR     := ./src
 INCLUDE_DIR := ./include
-BUILD_DIR   := ./buil
+BUILD_DIR   := ./build
 BIN_DIR     := ./bin
 SRCS        := $(wildcard $(SRC_DIR)/*.c)
 OBJS        := $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
