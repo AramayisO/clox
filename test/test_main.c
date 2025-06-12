@@ -7,11 +7,11 @@ void tearDown(void) {
 }
 
 void test_passes(void) {
-    TEST_ASSERT(1);
+    TEST_PASS();
 }
 
 void test_fails(void) {
-    TEST_ASSERT(0);
+    TEST_FAIL();
 }
 
 int main(void) {

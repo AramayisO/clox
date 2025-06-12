@@ -1,14 +1,6 @@
 PROJECT := clox
 
 # ---------------------------------------------------------
-#  Compiler
-# ---------------------------------------------------------
-CC      := clang
-CFLAGS  := -std=c17 -Wall -Werror -Wextra -pedantic
-LDFLAGS :=
-
-
-# ---------------------------------------------------------
 # Directories and files
 # ---------------------------------------------------------
 SRC_DIR     := ./src
@@ -22,6 +14,13 @@ EXEC        := $(BIN_DIR)/$(PROJECT)
 TEST_SRCS   := $(wildcard $(TEST_DIR)/*.c)
 TEST_OBJS   := $(patsubst $(TEST_DIR)/%.c, $(BUILD_DIR)/%.o, $(TEST_SRCS))
 TEST_EXEC   := $(BIN_DIR)/test
+
+# ---------------------------------------------------------
+#  Compiler
+# ---------------------------------------------------------
+CC      := clang
+CFLAGS  := -std=c17 -Wall -Werror -Wextra -pedantic -I$(INCLUDE_DIR)
+LDFLAGS :=
 
 # ---------------------------------------------------------
 # Targets
@@ -51,8 +50,9 @@ clean:
 	rm -rf $(BIN_DIR)
 
 $(EXEC): $(OBJS)
+	@echo $(OBJS)
 	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $? -o $@
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(BUILD_DIR)
