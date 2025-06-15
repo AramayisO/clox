@@ -1,4 +1,4 @@
-project(${CMAKE_PROJECT_NAME}_test)
+project(${CMAKE_PROJECT_NAME}_tests)
 
 # Collect all test source files
 file(GLOB TEST_SRCS CONFIGURE_DEPENDS *.c)
@@ -13,6 +13,3 @@ target_link_libraries(${PROJECT_NAME} PRIVATE unity)
 # Set where the test executable should be places
 set_target_properties(${PROJECT_NAME} PROPERTIES 
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests)
-
-# Register with CTest
-add_test(NAME unit COMMAND ${PROJECT_NAME})

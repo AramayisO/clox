@@ -20,9 +20,7 @@ option(BUILD_TESTS "Build the unit tests" OFF)
 add_subdirectory(src)
 
 if (BUILD_TESTS)
-    enable_testing()
     add_subdirectory(lib/Unity)
     target_compile_definitions(unity PUBLIC UNITY_OUTPUT_COLOR)
     add_subdirectory(tests)
 endif()
-
