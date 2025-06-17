@@ -17,6 +17,10 @@ String String_create(const char *str) {
     return (String){ .data = data, .length = length };
 }
 
+String String_empty(void) {
+    return (String){ .data = NULL, .length = 0 };
+}
+
 const char *String_to_c_string(const String *string) {
     if (string == NULL || string->data == NULL) {
         return "";
