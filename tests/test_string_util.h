@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CLOX_TEST_STRING_UTIL_H
+#define CLOX_TEST_STRING_UTIL_H
 
 void run_string_util_tests(void);
 
@@ -8,7 +9,15 @@ void test_string_create_returns_string_with_correct_length_and_data(void);
 
 void test_string_create_does_not_modify_original_string(void);
 
-void test_string_emptry_returns_emptry_string(void);
+void test_string_empty_returns_empty_string(void);
+
+void test_string_is_empty_returns_true_if_string_is_null(void);
+
+void test_string_is_empty_returns_true_if_string_data_is_null(void);
+
+void test_strign_is_empty_returns_true_if_string_length_is_zero(void);
+
+void test_string_is_empty_returns_false_if_string_is_not_empty(void);
 
 void test_string_to_c_string_returns_empty_string_if_string_is_null(void);
 
@@ -16,3 +25,4 @@ void test_string_to_c_string_returns_empty_string_if_string_data_is_null(void);
 
 void test_string_to_c_string_returns_correct_c_string(void);
 
+#endif // CLOX_TEST_STRING_UTIL_H

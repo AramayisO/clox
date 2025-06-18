@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
 #include "../lib/Unity/src/unity.h"
@@ -8,7 +9,11 @@ void run_string_util_tests(void) {
     RUN_TEST(test_string_create_returns_empty_string_when_given_null);
     RUN_TEST(test_string_create_returns_string_with_correct_length_and_data);
     RUN_TEST(test_string_create_does_not_modify_original_string);
-    RUN_TEST(test_string_emptry_returns_emptry_string);
+    RUN_TEST(test_string_empty_returns_empty_string);
+    RUN_TEST(test_string_is_empty_returns_true_if_string_is_null);
+    RUN_TEST(test_string_is_empty_returns_true_if_string_data_is_null);
+    RUN_TEST(test_strign_is_empty_returns_true_if_string_length_is_zero);
+    RUN_TEST(test_string_is_empty_returns_false_if_string_is_not_empty);
     RUN_TEST(test_string_to_c_string_returns_empty_string_if_string_is_null);
     RUN_TEST(test_string_to_c_string_returns_empty_string_if_string_data_is_null);
     RUN_TEST(test_string_to_c_string_returns_correct_c_string);
@@ -36,10 +41,33 @@ void test_string_create_does_not_modify_original_string(void) {
     TEST_ASSERT_EQUAL_STRING(original_str, str);
 }
 
-void test_string_emptry_returns_emptry_string(void) {
+void test_string_empty_returns_empty_string(void) {
     String empty_string = String_empty();
     TEST_ASSERT_NULL(empty_string.data);
     TEST_ASSERT_EQUAL(0, empty_string.length);
+}
+
+void test_string_is_empty_returns_true_if_string_is_null(void) {
+    String *string = NULL;
+    TEST_ASSERT_TRUE(String_is_empty(string));
+}
+
+void test_string_is_empty_returns_true_if_string_data_is_null(void) {
+    String string = (String){ .data = NULL, .length = 1 };
+    TEST_ASSERT_TRUE(String_is_empty(&string));
+}
+
+void test_strign_is_empty_returns_true_if_string_length_is_zero(void) {
+    char *str= "";
+    String string = (String){ .data = str, .length = 0 };
+    TEST_ASSERT_TRUE(String_is_empty(&string));
+}
+
+void test_string_is_empty_returns_false_if_string_is_not_empty(void) {
+    char *str= "Hello, World!";
+    size_t length = strlen(str);
+    String string = (String){ .data = str, .length = length };
+    TEST_ASSERT_FALSE(String_is_empty(&string));
 }
 
 void test_string_to_c_string_returns_empty_string_if_string_is_null(void) {

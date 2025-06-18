@@ -1,5 +1,7 @@
+#include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stddef.h>
 #include "string_util.h"
 
 String String_create(const char *str) {
@@ -19,6 +21,13 @@ String String_create(const char *str) {
 
 String String_empty(void) {
     return (String){ .data = NULL, .length = 0 };
+}
+
+bool String_is_empty(const String *string) {
+    if (string == NULL || string->data == NULL || string->length == 0) {
+        return true;
+    }
+    return false;
 }
 
 const char *String_to_c_string(const String *string) {
