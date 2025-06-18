@@ -22,16 +22,18 @@ String String_empty(void) {
 }
 
 const char *String_to_c_string(const String *string) {
-    if (string == NULL || string->data == NULL) {
-        return "";
+    size_t string_length = 0;
+
+    if (string != NULL && string->data != NULL) {
+        string_length = string->length;
     }
 
-    char *c_str = (char *)malloc(string->length + 1);
+    char *c_str = (char *)malloc(string_length + 1);
 
-    if (c_str != NULL) {
-        memcpy(c_str, string->data, string->length);
-        c_str[string->length] = '\0'; // Null-terminate the string
+    if (string != NULL && string->data != NULL) {
+        memcpy(c_str, string->data, string_length);
     }
 
+    c_str[string_length] = '\0';
     return c_str;
 }
