@@ -1,0 +1,16 @@
+#ifndef CLOX_TEST_REPL_H
+#define CLOX_TEST_REPL_H
+
+void run_repl_tests(void);
+
+void test_repl_print_prompt_to_stdout_prints_correct_string_to_stdout(void);
+
+void test_repl_read_line_from_stdin_reads_single_line_from_stdin(void);
+
+void test_repl_read_line_from_stdin_can_be_called_repeatedly_to_read_next_lines(void);
+
+void test_repl_read_line_from_stdin_returns_empty_string_is_empty(void);
+
+void test_repl_read_line_from_stdin_returns_emptry_string_if_eof_is_read(void);
+
+#endif // CLOX_TEST_REPL_H
